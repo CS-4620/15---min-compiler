@@ -1,0 +1,48 @@
+/* 15min.cup */
+/* Parser for a compiler that takes 15 minutes to write. */
+
+/***** Build instructions
+
+ java -jar java-cup-11a.jar  15min.cup
+ javac -classpath .:java-cup-11a-runtime.jar -d . parser.java sym.java Yylex.java
+    
+*****/
+
+/***** Run instructions
+
+ java -classpath .:java-cup-11a-runtime.jar parser15min.parser < infile > out.ps
+
+*****/
+
+package parser15min;
+
+import java_cup.runtime.*;
+
+parser code {:
+    public static void main(String args[]) throws Exception {
+        new parser(new Yylex(System.in)).parse();
+    }
+:}
+
+terminal CIRCLE;
+
+non terminal program;
+non terminal stmts;
+non terminal stmt;
+
+
+program	::=	
+        stmts
+    |   /* Empty */
+	;
+	
+stmts   ::=
+        stmts stmt
+    |   stmt
+    ;
+
+stmt	::=
+
+        CIRCLE 
+        {: System.out.println( "300 300 50 0 360 arc fill" ); :}
+    ;

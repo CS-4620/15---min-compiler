@@ -1,0 +1,26 @@
+-------------------------------------
+15min compiler using JLex and JavaCUP
+-------------------------------------
+
+This directory contains a simple example of building a compiler with
+JLex and JavaCUP.  The compiler translates a little language about circles
+into a postscript file.  See the infile for example input.  See 15min.lex
+and 15min.cup for the token regular expression specifications and 
+language grammar.
+
+Building the compiler:
+    java -jar JLex.jar 15min.lex
+    mv 15min.lex.java Yylex.java
+    java -jar java-cup-11a.jar  15min.cup
+    javac -classpath .:java-cup-11a-runtime.jar -d . parser.java sym.java Yylex.java
+    
+Running the compiler:
+ java -classpath .:java-cup-11a-runtime.jar parser15min.parser < infile > out.ps
+ 
+
+
+
+------------------ Credits ------------------------------------------------
+Put together by Michelle Strout, February 2010.
+Copied and edited with permission from Rick Ord's lex and yacc 5-minute compiler.
+Rick Ord saw this demonstrated Martin Ruckert, Munich University of Applied Sciences, at SIGCSE 2007.
